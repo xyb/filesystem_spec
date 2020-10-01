@@ -1,0 +1,50 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+
+jobs:
+  tests:
+    name: py${{ matrix.python-version }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 4
+      matrix:
+        #python-version: [3.6, 3.7, 3.8]
+        python-version: [3.8]
+        os: ["ubuntu-latest", "macOS-latest", "windows-latest"]
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: conda-incubator/setup-miniconda@v1
+      with:
+        auto-update-conda: true
+        python-version: ${{ matrix.python-version }}
+    - name: Conda info
+      shell: bash -l {0}
+      run: conda info
+    - name: Conda list
+      shell: pwsh
+      run: conda list
+    - name: Install tox
+      run: |
+        # python -m pip install --upgrade pip
+        # pip install tox tox-gh-actions
+        conda config --set always_yes yes --set changeps1 no
+        conda install -c conda-forge tox tox-conda
+        curl -O https://github.com/ymyzk/tox-gh-actions/archive/v1.3.0.tar.gz
+        conda install ./v1.3.0.tar.gz
+    #- name: Install dependencies
+    #  run: |
+    #    source ci/install.sh
+    - name: Test with tox
+      run: tox
+      env:
+        PLATFORM: ${{ matrix.os }}
