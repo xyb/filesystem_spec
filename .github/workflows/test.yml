@@ -42,3 +42,5 @@ jobs:
     #    source ci/install.sh
     - name: Test with tox
       run: tox
+      env:
+        PLATFORM: ${{ matrix.os }}
