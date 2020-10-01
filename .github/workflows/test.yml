@@ -40,7 +40,7 @@ jobs:
         conda config --set always_yes yes --set changeps1 no
         conda install -c conda-forge tox tox-conda
         curl -O https://github.com/ymyzk/tox-gh-actions/archive/v1.3.0.tar.gz
-        conda install v1.3.0.tar.gz
+        conda install ./v1.3.0.tar.gz
     #- name: Install dependencies
     #  run: |
     #    source ci/install.sh
