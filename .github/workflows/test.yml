@@ -14,7 +14,7 @@ jobs:
       max-parallel: 4
       matrix:
         #python-version: [3.6, 3.7, 3.8]
-        python-version: [3.8]
+        python-version: [3.6]
         os: ["ubuntu-latest", "macOS-latest", "windows-latest"]
       fail-fast: false
     steps:
@@ -32,8 +32,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt update -y && sudo apt install -y libsnappy-dev libfuse-dev
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          curl -O https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/python_snappy-0.5.4-cp38-cp38-win_amd64.whl
-          pip install ./python_snappy-0.5.4-cp38-cp38-win_amd64.whl
+          echo "nothing to install"
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install snappy
         else
@@ -43,13 +42,6 @@ jobs:
       shell: bash
     #    source ci/install.sh
     - name: Test with tox
-      shell: bash
-      run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          curl -O https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/python_snappy-0.5.4-cp38-cp38-win_amd64.whl
-          tox --installpkg python_snappy-*.whl
-        else
-          tox
-        fi
+      run: tox
       env:
         PLATFORM: ${{ matrix.os }}
