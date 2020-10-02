@@ -35,8 +35,7 @@ jobs:
       run: conda list
     - name: Install tox
       run: |
-        conda config --set always_yes yes --set changeps1 no
-        conda install -c conda-forge tox tox-conda
+        conda install tox tox-conda
     #- name: Install dependencies
     #  run: |
     #    if [ "$RUNNER_OS" == "Linux" ]; then
@@ -54,8 +53,8 @@ jobs:
     - name: Test with tox
       shell: bash -l {0}
       run: |
-        conda config --set always_yes yes --set changeps1 no
-        conda activate test
+        #conda config --set always_yes yes --set changeps1 no
+        #conda activate test
         tox
       env:
         PLATFORM: ${{ matrix.os }}
