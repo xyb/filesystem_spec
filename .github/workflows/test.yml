@@ -32,7 +32,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt update -y && sudo apt install -y libsnappy-dev libfuse-dev
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          paket add Snappy --version 1.1.1.7
+          pwsh -c {Install-Package Snappy -Version 1.1.1.7}
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install snappy
         else
