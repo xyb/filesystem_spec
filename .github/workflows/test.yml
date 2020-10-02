@@ -32,8 +32,8 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt update -y && sudo apt install -y libsnappy-dev libfuse-dev
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          #choco install important_windows_software
-          echo "nothing to install"
+          wget https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/python_snappy-0.5.4-cp38-cp38-win_amd64.whl
+          pip install ./python_snappy-0.5.4-cp38-cp38-win_amd64.whl
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install snappy
         else
