@@ -43,6 +43,14 @@ jobs:
       shell: bash
     #    source ci/install.sh
     - name: Test with tox
-      run: tox
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          pip install tox-external-wheels
+          curl -O https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/python_snappy-0.5.4-cp38-cp38-win_amd64.whl
+          tox --external_wheels "(python-snappy: python_snappy-*.whl[optional_extra])"
+        else
+          tox
+        fi
       env:
         PLATFORM: ${{ matrix.os }}
