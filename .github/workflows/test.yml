@@ -40,8 +40,7 @@ jobs:
           exit 1
         fi
       shell: bash
-    #    source ci/install.sh
     - name: Test with tox
-      run: tox
+      run: tox -v
       env:
         PLATFORM: ${{ matrix.os }}
