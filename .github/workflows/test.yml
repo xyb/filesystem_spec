@@ -53,6 +53,8 @@ jobs:
       shell: bash
     - name: Test with tox
       shell: bash -l {0}
-      run: tox
+      run: |
+        conda activate test
+        tox
       env:
         PLATFORM: ${{ matrix.os }}
