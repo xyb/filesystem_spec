@@ -54,6 +54,7 @@ jobs:
     - name: Test with tox
       shell: bash -l {0}
       run: |
+        conda config --set always_yes yes --set changeps1 no
         conda activate test
         tox
       env:
