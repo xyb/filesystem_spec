@@ -52,6 +52,8 @@ jobs:
         fi
       shell: bash
     - name: Test with tox
-      run: tox
+      run: |
+        conda activate test
+        tox
       env:
         PLATFORM: ${{ matrix.os }}
