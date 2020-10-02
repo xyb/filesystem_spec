@@ -37,20 +37,20 @@ jobs:
       run: |
         conda config --set always_yes yes --set changeps1 no
         conda install -c conda-forge tox tox-conda
-    - name: Install dependencies
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt update -y && sudo apt install -y libsnappy-dev libfuse-dev
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          #choco install important_windows_software
-          echo "nothing to install"
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-         brew install snappy
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
-      shell: bash
+    #- name: Install dependencies
+    #  run: |
+    #    if [ "$RUNNER_OS" == "Linux" ]; then
+    #      sudo apt update -y && sudo apt install -y libsnappy-dev libfuse-dev
+    #    elif [ "$RUNNER_OS" == "Windows" ]; then
+    #      #choco install important_windows_software
+    #      echo "nothing to install"
+    #    elif [ "$RUNNER_OS" == "macOS" ]; then
+    #     brew install snappy
+    #    else
+    #      echo "$RUNNER_OS not supported"
+    #      exit 1
+    #    fi
+    #  shell: bash
     - name: Test with tox
       shell: bash -l {0}
       run: |
